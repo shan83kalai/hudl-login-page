@@ -12,7 +12,7 @@ class HomePage:
     login_button = (By.XPATH, "//a[contains(@class, 'mainnav__item') and contains(@data-qa-id, 'login-select')]")
 
     # Method to click the 'Login' button
-    def clickLoginButton(self):
+    def click_login_button(self):
         login_button_element = self.driver.find_element(*self.login_button)
         login_button_element.click()
         return DropdownPage(self.driver)  # Ensure DropdownPage is returned

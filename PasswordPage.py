@@ -12,13 +12,13 @@ class PasswordPage:
     continue_button = (By.XPATH, "//button[contains(text(), 'Continue')]")  # Locator for the Continue button
 
     # Method to enter the password
-    def enterPassword(self, password: str):
+    def enter_password(self, password: str):
         password_element = self.driver.find_element(*self.password_input)
         password_element.clear()  # Clears any pre-filled data before entering
         password_element.send_keys(password)
 
     # Method to click the "Continue" button
-    def clickContinue(self):
+    def click_continue(self):
         continue_button_element = self.driver.find_element(*self.continue_button)
         continue_button_element.click()
 

@@ -12,13 +12,13 @@ class LoginPageWrapper:
     continue_button = (By.XPATH, "//button[contains(text(), 'Continue')]")  # Locator for the Continue button
 
     # Method to enter email
-    def enterEmail(self, email: str):
+    def enter_email(self, email: str):
         email_element = self.driver.find_element(*self.email_input)
         email_element.clear()  # Clears any pre-filled data before entering
         email_element.send_keys(email)
 
     # Method to click the "Continue" button
-    def clickContinue(self):
+    def click_continue_button(self):
         continue_button_element = self.driver.find_element(*self.continue_button)
         continue_button_element.click()
 

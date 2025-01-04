@@ -34,6 +34,8 @@ encrypted_password = config.get("DEFAULT", "ENCRYPTED_PASSWORD")
 password = fernet.decrypt(encrypted_password.encode()).decode()
 logger.debug(f"Decrypted Password: {password}")  # Only log in DEBUG level for security
 
+plain_password = config.get("DEFAULT", "PASSWORD")
+
 # Initialize WebDriver
 driver = webdriver.Chrome()
 
@@ -44,24 +46,24 @@ try:
 
     # Step 1: Click the login button and get the dropdown page
     home_page = HomePage(driver)
-    dropdown_page = home_page.clickLoginButton()
+    dropdown_page = home_page.click_login_button()
 
     # Step 2: Click the "Hudl" option in the dropdown
-    dropdown_page.clickHudl()
+    login_page = dropdown_page.click_hudl()
 
     # Step 3: Enter email and proceed using USER_EMAIL from the config file
-    login_page = LoginPageWrapper(driver)
-    login_page.enterEmail(user_email)
+    login_page.enter_email(user_email)
     logger.info(f"Entering email: {user_email}")
-    password_page = login_page.clickContinue()
+    password_page = login_page.click_continue_button()
 
     # Step 4: Enter password and continue
     logger.info("Entering password and continuing...")
-    password_page.enterPassword(password)
-    hudl_home_page = password_page.clickContinue()
+    password_page.enter_password(password)
+    # password_page.enterPassword(plain_password)
+    hudl_home_page = password_page.click_continue()
 
     # Retrieve and log the display name
-    display_name = hudl_home_page.getDisplayUserName()
+    display_name = hudl_home_page.get_display_user_name()
     logger.info(f"Display Name: {display_name}")
 
     logger.info("Logged in successfully!")

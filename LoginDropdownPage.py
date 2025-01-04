@@ -11,7 +11,7 @@ class DropdownPage:
     hudl_option = (By.XPATH, "//a[@data-qa-id='login-hudl']")
 
     # Method to click Hudl
-    def clickHudl(self):
+    def click_hudl(self):
         hudl_option_element = self.driver.find_element(*self.hudl_option)
         hudl_option_element.click()
         return LoginPageWrapper(self.driver)
