@@ -1,18 +1,12 @@
+import configparser
+import os
+
 from cryptography.fernet import Fernet
 from selenium import webdriver
+
 from HomePage import HomePage
 from LoginPageWrapper import LoginPageWrapper
-import os
-import configparser
-import logging
-
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,  # Adjust to DEBUG for development
-    format="%(asctime)s - %(levelname)s - %(message)s",
-    handlers=[logging.StreamHandler()]
-)
-logger = logging.getLogger(__name__)
+from project_logging.CustomLogger import logger
 
 # Read config file using the current script's location
 config = configparser.ConfigParser()
