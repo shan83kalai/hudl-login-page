@@ -1,5 +1,6 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
+from PasswordPage import PasswordPage
 
 
 class LoginPageWrapper:
@@ -20,3 +21,6 @@ class LoginPageWrapper:
     def clickContinue(self):
         continue_button_element = self.driver.find_element(*self.continue_button)
         continue_button_element.click()
+
+        # When continue is clicked, navigate to the PasswordPage
+        return PasswordPage(self.driver)
