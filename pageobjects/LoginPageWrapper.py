@@ -11,6 +11,8 @@ class LoginPageWrapper:
     # Locators
     email_input = (By.ID, "username")  # Locator for the email input field
     continue_button = (By.XPATH, "//button[contains(text(), 'Continue')]")  # Locator for the Continue button
+    # Locator for the error message
+    error_message_locator = (By.ID, "error-element-password")
 
     # Method to enter email
     def enter_email(self, email: str):
@@ -23,5 +25,17 @@ class LoginPageWrapper:
         continue_button_element = self.driver.find_element(*self.continue_button)
         continue_button_element.click()
 
-        # When continue is clicked, navigate to the PasswordPage
-        return PasswordPage(self.driver)
+        # Check if error message exists
+        try:
+            self.driver.find_element(*self.error_message_locator)
+            return self  # Stay on LoginPageWrapper
+        except Exception:
+            return PasswordPage(self.driver)  # Navigate to PasswordPage if no error
+
+    # Method to get the error message
+    def get_error_message(self) -> str | None:
+        try:
+            error_element = self.driver.find_element(*self.error_message_locator)
+            return error_element.text  # Extract the error message
+        except Exception:
+            return None  # Return None if no error message is present
