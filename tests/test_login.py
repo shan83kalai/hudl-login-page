@@ -136,3 +136,33 @@ def test_login_empty_email():
     finally:
         driver.quit()
         logger.info("Browser session closed")
+
+def test_login_invalid_email_format():
+    driver = DriverSetup.get_driver()
+    config = ConfigReader.get_config()
+
+    try:
+        # Navigate to the Hudl login page
+        login_page = navigate_to_hudl_login(driver, config)
+        invalid_email = "guljar.com"  # Invalid email format
+
+        # Enter invalid email and attempt to proceed
+        logger.info(f"Entering invalid email: {invalid_email}")
+        login_page.enter_email(invalid_email)
+        resulting_page = login_page.click_continue_button()
+
+        # Assert that the user remains on the LoginPage
+        # assert resulting_page == login_page, "Expected to stay on the LoginPage for an invalid email format."
+
+        # Verify the appropriate error message is displayed
+        error_message = resulting_page.get_input_error_message()
+        expected_error_message = "Enter a valid email."
+        assert error_message == expected_error_message, (f"Expected error message to be '{expected_error_message}', "
+                                                         f"but got '{error_message}'")
+        logger.info("Error message verification passed for invalid email format.")
+    except Exception as e:
+        logger.error(f"An error occurred during the test: {e}", exc_info=True)
+        raise
+    finally:
+        driver.quit()
+        logger.info("Browser session closed")
