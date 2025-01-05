@@ -28,12 +28,11 @@ class PasswordPage:
         # Check if error message exists
         try:
             self.driver.find_element(*self.error_message_locator)
-            return self  # Stay on LoginPageWrapper
+            return self  # Stay on PasswordPage if an error message exists
         except Exception:
-            return HudlHomePage(self.driver)  # Navigate to PasswordPage if no error
+            return HudlHomePage(self.driver)  # Navigate to HudlHomePage if login succeeds
 
-        # Method to get the error message
-
+    # Method to get the error message
     def get_error_message(self) -> str | None:
         try:
             error_element = self.driver.find_element(*self.error_message_locator)
@@ -41,3 +40,13 @@ class PasswordPage:
         except Exception:
             return None  # Return None if no error message is present
 
+    # Method to get the browser-native validation message
+    def get_validation_message(self, field_locator: tuple) -> str:
+        """
+        Fetches the browser's built-in validation message for the given field locator.
+        """
+        try:
+            field_element = self.driver.find_element(*field_locator)
+            return self.driver.execute_script("return arguments[0].validationMessage;", field_element)
+        except Exception as e:
+            raise RuntimeError(f"Failed to get validation message: {e}")
