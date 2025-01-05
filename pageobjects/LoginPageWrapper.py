@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-
 from pageobjects.PasswordPage import PasswordPage
+from util.ValidationUtils import get_validation_message
 
 
 class LoginPageWrapper:
@@ -25,3 +25,7 @@ class LoginPageWrapper:
 
         # When continue is clicked, navigate to the PasswordPage
         return PasswordPage(self.driver)
+
+    # Use the utility to get the validation message
+    def get_validation_message(self, field_locator: tuple) -> str:
+        return get_validation_message(self.driver, field_locator)

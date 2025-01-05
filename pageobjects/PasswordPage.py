@@ -2,6 +2,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
 from pageobjects.HudlHomePage import HudlHomePage
+from util.ValidationUtils import get_validation_message
 
 
 class PasswordPage:
@@ -40,13 +41,6 @@ class PasswordPage:
         except Exception:
             return None  # Return None if no error message is present
 
-    # Method to get the browser-native validation message
+    # Use the utility to get the validation message
     def get_validation_message(self, field_locator: tuple) -> str:
-        """
-        Fetches the browser's built-in validation message for the given field locator.
-        """
-        try:
-            field_element = self.driver.find_element(*field_locator)
-            return self.driver.execute_script("return arguments[0].validationMessage;", field_element)
-        except Exception as e:
-            raise RuntimeError(f"Failed to get validation message: {e}")
+        return get_validation_message(self.driver, field_locator)
