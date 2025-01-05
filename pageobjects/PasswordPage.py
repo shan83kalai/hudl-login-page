@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
-from HudlHomePage import HudlHomePage  # Importing HudlHomePage class
+
+from pageobjects.HudlHomePage import HudlHomePage
 
 
 class PasswordPage:

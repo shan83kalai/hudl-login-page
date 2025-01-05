@@ -1,7 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.remote.webdriver import WebDriver
 
-from LoginDropdownPage import DropdownPage
+from pageobjects.LoginDropdownPage import LoginDropdownPage
 
 
 class HomePage:
@@ -15,4 +15,4 @@ class HomePage:
     def click_login_button(self):
         login_button_element = self.driver.find_element(*self.login_button)
         login_button_element.click()
-        return DropdownPage(self.driver)  # Ensure DropdownPage is returned
+        return LoginDropdownPage(self.driver)  # Ensure DropdownPage is returned

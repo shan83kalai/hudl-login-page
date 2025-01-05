@@ -1,9 +1,9 @@
 from selenium.webdriver.common.by import By
 
-from LoginPageWrapper import LoginPageWrapper
+from pageobjects.LoginPageWrapper import LoginPageWrapper
 
 
-class DropdownPage:
+class LoginDropdownPage:
     def __init__(self, driver):
         self.driver = driver
 
