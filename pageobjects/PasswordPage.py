@@ -11,6 +11,8 @@ class PasswordPage:
     # Locators
     password_input = (By.ID, "password")  # Locator for the password input field
     continue_button = (By.XPATH, "//button[contains(text(), 'Continue')]")  # Locator for the Continue button
+    # Locator for the error message
+    error_message_locator = (By.ID, "error-element-password")
 
     # Method to enter the password
     def enter_password(self, password: str):
@@ -23,5 +25,19 @@ class PasswordPage:
         continue_button_element = self.driver.find_element(*self.continue_button)
         continue_button_element.click()
 
-        # Return the new page object HudlHomePage
-        return HudlHomePage(self.driver)
+        # Check if error message exists
+        try:
+            self.driver.find_element(*self.error_message_locator)
+            return self  # Stay on LoginPageWrapper
+        except Exception:
+            return HudlHomePage(self.driver)  # Navigate to PasswordPage if no error
+
+        # Method to get the error message
+
+    def get_error_message(self) -> str | None:
+        try:
+            error_element = self.driver.find_element(*self.error_message_locator)
+            return error_element.text  # Extract the error message
+        except Exception:
+            return None  # Return None if no error message is present
+
