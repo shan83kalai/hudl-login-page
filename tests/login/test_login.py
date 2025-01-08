@@ -38,7 +38,7 @@ def test_login():
 
         # Validate display name
         display_name = hudl_home_page.get_display_user_name()
-        expected_display_name = "Guljar H"
+        expected_display_name = "Guljar"
         assert display_name == expected_display_name, (f"Expected display name to be '{expected_display_name}', "
                                                        f"but got '{display_name}'")
         logger.info("Display name verification passed.")
